@@ -1,0 +1,14 @@
+
+> nestjs-api-tutorial@0.0.1 start
+> nest start
+
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +44ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUserModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mBookmarkModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:47 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +11ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:49 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +1812ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:49 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/signup, POST} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:49 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/signin, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 9328  - [39m01/04/2023, 18:52:49 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +2ms[39m
