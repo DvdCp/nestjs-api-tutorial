@@ -8,7 +8,6 @@ import {
 import * as pactum from 'pactum';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from 'src/auth/dto';
-import e from 'express';
 
 describe('App e2e', () => {
  let app: INestApplication;
@@ -25,32 +24,75 @@ describe('App e2e', () => {
   );
   await app.init();
   await app.listen(3333);
+  pactum.request.setBaseUrl('http://localhost:3333');
 
   prisma = app.get(PrismaService);
   await prisma.cleanDb();
  });
 
  describe('Auth test', () => {
+  const requestBody: AuthDto = {
+   email: 'davidc@gmail.com',
+   password: 'Bye',
+  };
   describe('Signup', () => {
    it('Signup is successful', () => {
-    const requestBody: AuthDto = {
-     email: 'davidc@gmail.com',
-     password: 'Bye',
-    };
     const expectedStatus = 201;
     return pactum
      .spec()
-     .post('http://localhost:3333/auth/signup')
+     .post('/auth/signup')
      .withBody(requestBody)
      .expectStatus(expectedStatus);
    });
+   it('Signup is not successful and an error is thrown (empty username) ', () => {
+    const expectedStatus = 400;
+    return pactum
+     .spec()
+     .post('/auth/signup')
+     .withBody({ password: requestBody.password })
+     .expectStatus(expectedStatus);
+   });
+   it('Signup is not successful and an error is thrown (empty email) ', () => {
+    const expectedStatus = 400;
+    return pactum
+     .spec()
+     .post('/auth/signup')
+     .withBody({ password: requestBody.email })
+     .expectStatus(expectedStatus);
+   });
+   it('Signup is not successful and an error is thrown (empty body) ', () => {
+    const expectedStatus = 400;
+    return pactum
+     .spec()
+     .post('/auth/signup')
+     .withBody({})
+     .expectStatus(expectedStatus);
+   });
   });
-  describe('Signin', () => {});
+  describe('Signin', () => {
+   it('should signin successfully', () => {
+    return pactum
+     .spec()
+     .post('/auth/signin')
+     .withBody(requestBody)
+     .expectStatus(200)
+     .stores('userAt', 'access_token');
+   });
+  });
  });
 
  describe('User test', () => {
-  describe('Get current user (me)', () => {});
-  describe('Get current user (me)', () => {});
+  describe('Get current user (me)', () => {
+   it('should get current user', () => {
+    return pactum
+     .spec()
+     .get('/users/me')
+     .withHeaders({ Authorization: 'Bearer $S{userAt}' })
+     .expectStatus(200);
+   });
+  });
+
+  describe('Edit user', () => {});
  });
 
  describe('Bookmark test', () => {
@@ -60,8 +102,6 @@ describe('App e2e', () => {
   describe('Edit bookmark', () => {});
   describe('Delete bookmark', () => {});
  });
-
- it.todo('should pass');
 
  afterAll(async () => {
   app.close();
