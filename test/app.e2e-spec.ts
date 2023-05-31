@@ -150,8 +150,7 @@ describe('App e2e', () => {
             it('should return bookmark list', () => {
                 return pactum
                     .spec()
-                    .get('/bookmarks/{id}')
-                    .withPathParams('id', '$S{bookmarkId}')
+                    .get('/bookmarks/')
                     .withHeaders({
                         Authorization: 'Bearer $S{userAt}',
                     })
@@ -165,12 +164,13 @@ describe('App e2e', () => {
             it('should return bookmark identified by given id', () => {
                 return pactum
                     .spec()
-                    .get('/bookmark/')
+                    .get('/bookmarks/{id}')
+                    .withPathParams('id', '$S{bookmarkId}')
                     .withHeaders({
                         Authorization: 'Bearer $S{userAt}',
                     })
                     .expectStatus(200)
-                    .inspect();
+                    .expectBodyContains('$S{bookmarkId}');
             });
         });
         describe('Edit bookmark by id', () => {});
